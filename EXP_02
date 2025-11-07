@@ -1,0 +1,41 @@
+#2
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+# Download NLTK resources only once
+try:
+    nltk.data.find('tokenizers/punkt')
+except nltk.downloader.DownloadError:
+    nltk.download('punkt')
+
+try:
+    nltk.data.find('taggers/averaged_perceptron_tagger')
+except nltk.downloader.DownloadError:
+    nltk.download('averaged_perceptron_tagger')
+
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except nltk.downloader.DownloadError:
+    nltk.download('punkt_tab')
+
+try:
+    nltk.data.find('taggers/averaged_perceptron_tagger_eng')
+except nltk.downloader.DownloadError:
+    nltk.download('averaged_perceptron_tagger_eng')
+
+
+text = """Deep learning is a subset of machine learning, which is a branch of artificial intelligence.
+It uses neural networks with multiple layers to automatically extract features from data."""
+
+sentences = sent_tokenize(text)
+print("Sentence Tokenization:\n", sentences)
+
+words = word_tokenize(text)
+print("\nWord Tokenization:\n", words)
+
+# Perform POS tagging on the original words list
+pos_tags = nltk.pos_tag(words)
+print("\nPart of Speech Tagging:\n", pos_tags)
+
+words_lower = [word.lower() for word in words if word.isalpha()]
+print("\nAfter Lowercasing and Punctuation Removal:\n", words_lower)
