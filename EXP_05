@@ -1,0 +1,34 @@
+#5
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn import metrics
+
+df = pd.DataFrame({
+    'text': [
+        'I absolutely loved this movie', 'The film was boring and too long',
+        'Amazing acting and great story', 'Worst movie I have ever seen',
+        'The plot was engaging and exciting', 'Terrible direction and poor script',
+        'A masterpiece, highly recommend it', 'Not worth the time, very disappointing',
+        'Beautiful cinematography and music', 'Bad acting and weak storyline'
+    ],
+    'label': ['positive', 'negative', 'positive', 'negative', 'positive',
+              'negative', 'positive', 'negative', 'positive', 'negative']
+})
+X = TfidfVectorizer().fit_transform(df['text'])
+X_train, X_test, y_train, y_test = train_test_split(X, df['label'], test_size=0.2, random_state=42, stratify=df['label'])
+model = MultinomialNB().fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
+print("Confusion Matrix:\n", metrics.confusion_matrix(y_test, y_pred))
+
+test_sentences = [
+    "I really enjoyed this movie", "The film was awful",
+    "Great story and characters", "Not a good movie at all",
+    "One of the best movies ever", "Terrible acting and bad script"
+]
+print("\nCustom Sentence Classification:")
+for s in test_sentences:
+    print(f"{s} --> {model.predict(TfidfVectorizer().fit(df['text']).transform([s]))[0].upper()}")
