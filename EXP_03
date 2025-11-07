@@ -1,14 +1,11 @@
-#3
 import nltk
 from nltk import word_tokenize, pos_tag, ne_chunk
 from nltk.tree import Tree
+
 nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
+nltk.download('averaged_perceptron_tagger_eng') 
 nltk.download('maxent_ne_chunker')
 nltk.download('words')
-nltk.download('maxent_ne_chunker_tab')
-nltk.download('punkt_tab')
-
 
 sentence = """Apple Inc. announced the release of the iPhone 16 in Cupertino, California."""
 
