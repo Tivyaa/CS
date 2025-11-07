@@ -1,0 +1,32 @@
+#1
+import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from pprint import pprint
+
+nltk.download(['punkt', 'stopwords', 'wordnet', 'averaged_perceptron_tagger', 'punkt_tab', 'averaged_perceptron_tagger_eng'])
+
+text = """Machine learning is a branch of artificial intelligence that enables
+computers to learn from data without being explicitly programmed. It allows
+systems to improve their performance on tasks over time by analyzing patterns,
+making predictions, and adapting to new information."""
+
+words, sentences = word_tokenize(text), sent_tokenize(text)
+
+stop_words = set(stopwords.words('english'))
+filtered = [w for w in words if w.isalpha() and w.lower() not in stop_words]
+
+stemmer, lemmatizer = PorterStemmer(), WordNetLemmatizer()
+stems = [stemmer.stem(w) for w in filtered]
+lemmas = [lemmatizer.lemmatize(w) for w in filtered]
+
+pos_tags = nltk.pos_tag(filtered)
+
+print("\nWord Tokens:", words)
+print("\nSentence Tokens:", sentences)
+print("\nFiltered Words:", filtered)
+print("\nStemmed Words:", stems)
+print("\nLemmatized Words:", lemmas)
+print("\nPart-of-Speech Tags:")
+pprint(pos_tags)
