@@ -1,0 +1,26 @@
+#3
+import nltk
+from nltk import word_tokenize, pos_tag, ne_chunk
+from nltk.tree import Tree
+
+# Download required resources
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+
+# Sample text
+sentence = "Dr. Abdul Kalam was born in Rameswaram, Tamil Nadu, in 1931 and later became the President of India."
+
+# Tokenize and POS Tag
+tokens = word_tokenize(sentence)
+pos_tags = pos_tag(tokens)
+print("POS Tags:", pos_tags)
+
+# Named Entity Recognition
+ner_tree = ne_chunk(pos_tags)
+print("\nNamed Entities:")
+for subtree in ner_tree:
+  if type(subtree) == Tree:
+    print(subtree)
